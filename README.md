@@ -35,10 +35,10 @@
 </p>
 
 <p align="center">
-	Inspired by @GeneTechnician's
-	<a href="https://www.reddit.com/r/MASFandom/comments/1hsuc2d/a_quick_tutorial_on_how_to_make_monika_stay_on">
-		r/MASFandom post
-	</a>
+
+Inspired by @GeneTechnician's
+[r/MASFandom post](https://www.reddit.com/r/MASFandom/comments/1hsuc2d/a_quick_tutorial_on_how_to_make_monika_stay_on)
+
 </p>
 
 <!-- Nice features section to highlight key things. -->
@@ -79,7 +79,7 @@ Please [report an issue](https://github.com/friends-of-monika/mas-stick-to-top/i
 
 1. Go to [the latest release page](https://github.com/friends-of-monika/mas-stick-to-top)
    and scroll to Assets section.
-2. Download `YOUR_SUBMOD_NAME-VERSION.zip` file.
+2. Download `stick-to-top-VERSION.zip` file.
 3. Drag and drop `game/` folder from it into your DDLC folder. <br>
    **NOTE:** make sure you don't drag it *into `game`*!
 4. You're all set!~
