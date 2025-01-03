@@ -35,10 +35,8 @@
 </p>
 
 <p align="center">
-
-Inspired by @[GeneTechnician](https://reddit.com/u/GeneTechnician)'s
-[r/MASFandom post](https://www.reddit.com/r/MASFandom/comments/1hsuc2d/a_quick_tutorial_on_how_to_make_monika_stay_on)
-
+	Inspired by <a href="https://reddit.com/u/GeneTechnician">u/GeneTechnician</a>'s
+	<a href="https://www.reddit.com/r/MASFandom/comments/1hsuc2d/a_quick_tutorial_on_how_to_make_monika_stay_on">MASFandom post</a>
 </p>
 
 <!-- Nice features section to highlight key things. -->
