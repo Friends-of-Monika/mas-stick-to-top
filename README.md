@@ -36,7 +36,7 @@
 
 <p align="center">
 
-Inspired by @GeneTechnician's
+Inspired by @[GeneTechnician](https://reddit.com/u/GeneTechnician)'s
 [r/MASFandom post](https://www.reddit.com/r/MASFandom/comments/1hsuc2d/a_quick_tutorial_on_how_to_make_monika_stay_on)
 
 </p>
