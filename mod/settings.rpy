@@ -25,7 +25,7 @@ screen fom_stt_settings():
         if is_implemented:
             text _("Stick to Top is {color=#84cc16}available{/color} on your system.")
         else:
-            text _("Stick to Top is {color=#ef4444}not available{/color} on your system. {a=https://github.com/friends-of-monika/mas-stick-to-top?tab=readme-ov-file#-how-do-i-use-it}Why?{/a}")
+            text _("Stick to Top is {color=#ef4444}not available{/color} on your system. {a=https://github.com/friends-of-monika/mas-stick-to-top?tab=readme-ov-file#-my-platform-is-supported-but-it-still-says-stick-to-top-is-unavailable}Why?{/a}")
 
         hbox spacing 10:
             textbutton _("Stick to top"):
