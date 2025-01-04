@@ -44,6 +44,7 @@
 
 * Easy pinning to foreground in just one click
 * Automatic pinning on game startup
+* <kbd>Ctrl+Enter</kbd> hotkey to toggle pin
 
 ## 🖥️ Platforms
 
