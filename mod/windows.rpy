@@ -1,6 +1,8 @@
 init 100 python in _fom_stt_windows:
     from store.mas_submod_utils import functionplugin, submod_log
+    from store import mas_windowutils
     from store import persistent
+    import os
 
     class WindowHandle(object):
         SINGLETON = None
@@ -12,9 +14,15 @@ init 100 python in _fom_stt_windows:
         def get_platform_handle(cls):
             if cls.SINGLETON is None:
                 submod_log.debug("[Stick to Top] [WindowHandle] Getting platform-specific WindowHandle implementation.")
+
                 if renpy.windows:
                     submod_log.debug("[Stick to Top] [WindowHandle] Using WindowsWindowHandle.")
                     cls.SINGLETON = WindowsWindowHandle()
+
+                elif renpy.linux:
+                    if LinuxX11WindowHandle.is_supported():
+                        submod_log.debug("[Stick to Top] [WindowHandle] Using LinuxX11WindowHandle.")
+                        cls.SINGLETON = LinuxX11WindowHandle()
 
             if cls.SINGLETON is None:
                 submod_log.debug("[Stick to Top] [WindowHandle] No supported implementations.")
@@ -68,9 +76,58 @@ init 100 python in _fom_stt_windows:
                 raise ctypes.WinError(ctypes.get_last_error())
 
         def get_mas_window_hwnd(self):
-            from store import mas_windowutils
             getMASWindowHWND = get_mangled(mas_windowutils, "getMASWindowHWND")
             return getMASWindowHWND()
+
+    class LinuxX11WindowHandle(WindowHandle):
+        def __init__(self):
+            super(LinuxX11WindowHandle, self).__init__()
+
+        @staticmethod
+        def is_supported():
+            return os.environ.get("XDG_SESSION_TYPE", None) == "x11"
+
+        def set_mas_foreground(self, stick):
+            from Xlib.display import Display
+
+            STATE_ADD = 1
+            STATE_REMOVE = 2
+
+            if stick:
+                submod_log.info("[Stick to Top] [LinuxX11WindowHandle] Setting MAS window as always on the foreground.")
+                state = STATE_ADD
+            else:
+                submod_log.info("[Stick to Top] [LinuxX11WindowHandle] Unsetting MAS window as always on the foreground.")
+                state = STATE_REMOVE
+
+            window = self.get_mas_window_handle()
+            self.set_Xlib_window_above_atom(window, state)
+            self.is_on_top = stick
+
+        def set_Xlib_window_above_atom(self, window, state):
+            from Xlib.display import Display
+            from Xlib.protocol import event
+            from Xlib import X
+
+            display = Display()
+            root = display.screen().root
+
+            net_wm_state = display.intern_atom("_NET_WM_STATE")
+            net_wm_state_above = display.intern_atom("_NET_WM_STATE_ABOVE")
+            wm_change_state = display.intern_atom("_NET_WM_STATE_TOGGLE")
+
+            event_data = event.ClientMessage(
+                window=window,
+                client_type=net_wm_state,
+                data=(32, [state, net_wm_state_above, 0, 0, 0])  # 1 = Add, 2 = Remove, 0 = Toggle
+            )
+
+            root.send_event(event_data, event_mask=X.SubstructureRedirectMask | X.SubstructureNotifyMask)
+            display.flush()
+
+        def get_mas_window_handle(self):
+            getMASWindowLinux = get_mangled(mas_windowutils, "getMASWindowLinux")
+            return getMASWindowLinux()
 
     def get_mangled(module, name):
         for k, v in module.__dict__.items():
@@ -90,8 +147,8 @@ init 101 python in _fom_stt_windows:
                 submod_log.error("[Stick to Top] [ch30_preloop] Failed to apply on startup.")
                 submod_log.error(repr(e))
 
-        submod_log.debug("[Stick to Top] [ch30_preloop] Deferring ch30_preloop task by 1 second.")
-        renpy.show_screen("fom_stt_windows_timer", 1.0, on_startup_task)
+        submod_log.debug("[Stick to Top] [ch30_preloop] Deferring ch30_preloop task.")
+        renpy.show_screen("fom_stt_windows_timer", 0.01, on_startup_task)
 
 screen fom_stt_windows_timer(delay, func, *args, **kwargs):
     timer delay action [Function(func, *args, **kwargs), Hide("fom_stt_windows_timer")]

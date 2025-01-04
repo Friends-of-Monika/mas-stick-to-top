@@ -47,7 +47,10 @@
 
 ## 🖥️ Platforms
 
-Currently Stick to Top only supports Windows. Linux support (X11) is planned.
+Currently, Stick to Top works on the following platforms:
+- any Windows
+- Linux with X11 (Wayland is unsupported)
+
 Mac is unsupported, support is planned when MAS v0.13 is out with Python 3.
 
 ### 🤔 My platform is supported, but it still says Stick to Top is unavailable
@@ -78,8 +81,7 @@ Please [report an issue](https://github.com/friends-of-monika/mas-stick-to-top/i
 1. Go to [the latest release page](https://github.com/friends-of-monika/mas-stick-to-top)
    and scroll to Assets section.
 2. Download `stick-to-top-VERSION.zip` file.
-3. Drag and drop `game/` folder from it into your DDLC folder. <br>
-   **NOTE:** make sure you don't drag it *into `game`*!
+3. Drag and drop `Submods` folder from it into your `game/` folder
 4. You're all set!~
 
 ## 🤔 How do I use it?
